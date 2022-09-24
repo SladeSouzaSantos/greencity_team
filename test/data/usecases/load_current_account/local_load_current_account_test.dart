@@ -1,4 +1,5 @@
 import 'package:GreencityTeam/domain/entities/entities.dart';
+import 'package:GreencityTeam/domain/helpers/helpers.dart';
 import 'package:GreencityTeam/domain/usecases/usecases.dart';
 
 import 'package:faker/faker.dart';
@@ -13,8 +14,12 @@ class LocalLoadCurrentAccount implements LoadCurrentAccount{
   LocalLoadCurrentAccount({@required this.fetchSecureCacheStorage});
 
   Future<AccountEntity> load() async {
-    final token = await fetchSecureCacheStorage.fetchSecure('token');
-    return AccountEntity(token);
+    try{
+      final token = await fetchSecureCacheStorage.fetchSecure('token');
+      return AccountEntity(token);
+    }catch(error){
+      throw DomainError.unexpected;
+    }
   }
 }
 
@@ -31,8 +36,14 @@ void main() {
   FetchSecureCacheStorageSpy fetchSecureCacheStorage;
   String token;
 
+  PostExpectation mockFetchSecureCall() => when(fetchSecureCacheStorage.fetchSecure(any));
+
   void mockFetchSecure(){
-    when(fetchSecureCacheStorage.fetchSecure(any)).thenAnswer((_) async => token);
+    mockFetchSecureCall().thenAnswer((_) async => token);
+  }
+
+  void mockFetchSecureError(){
+    mockFetchSecureCall().thenThrow(Exception());
   }
 
   setUp((){
@@ -55,5 +66,11 @@ void main() {
     expect(account, AccountEntity(token));
   });
 
-  test("", () {});
+  test("Should throw UnexpectedError if fetchSecureCacheStorage throws", () async {
+    mockFetchSecureError();
+
+    final future = sut.load();
+
+    expect(future, throwsA(DomainError.unexpected));
+  });
 }
