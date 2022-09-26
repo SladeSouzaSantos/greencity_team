@@ -1,3 +1,4 @@
+import 'package:GreencityTeam/presetation/protocols/protocols.dart';
 import 'package:GreencityTeam/validation/validators/validators.dart';
 
 import 'package:test/test.dart';
@@ -34,6 +35,6 @@ void main() {
 
     final error = sut.validate("pedro_eng.petroleo");
 
-    expect(error, "Campo inválido.");
+    expect(error, ValidationError.invalidField);
   });
 }
