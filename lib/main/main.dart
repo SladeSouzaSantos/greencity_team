@@ -1,4 +1,5 @@
 import '../ui/components/components.dart';
+import '../utils/i18n/i18n.dart';
 import 'factories/factories.dart';
 
 import 'package:get/get.dart';
@@ -6,6 +7,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
 
 void main() {
+  //R.load(Locale("en", "US"));
   runApp(App());
 }
 
