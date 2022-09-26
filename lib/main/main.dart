@@ -1,5 +1,4 @@
 import '../ui/components/components.dart';
-import '../utils/i18n/i18n.dart';
 import 'factories/factories.dart';
 
 import 'package:get/get.dart';

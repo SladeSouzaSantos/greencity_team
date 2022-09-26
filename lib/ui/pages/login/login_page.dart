@@ -1,7 +1,6 @@
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 
-import '../../../utils/i18n/i18n.dart';
 import '../../helpers/helpers.dart';
 import '../pages.dart';
 import '../../components/components.dart';
