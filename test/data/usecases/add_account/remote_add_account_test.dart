@@ -1,4 +1,5 @@
 
+import 'package:GreencityTeam/domain/helpers/helpers.dart';
 import 'package:faker/faker.dart';
 import 'package:mockito/mockito.dart';
 import 'package:test/test.dart';
@@ -42,5 +43,14 @@ void main(){
 
         }
     ));
+  });
+
+  test("Should throw UnexpectedError if HttpClient returns 400", () async{
+    when(httpClient.request(url: anyNamed("url"), method: anyNamed("method"), body: anyNamed("body")))
+        .thenThrow(HttpError.badRequest);
+
+    final future = sut.add(params);
+
+    expect(future, throwsA(DomainError.unexpected));
   });
 }
