@@ -18,5 +18,5 @@
 #Exceção - Falha no servidor
 1. Sistema retorna uma mensagem de erro inesperado (X)
 
-#Exceção - Credenciais inválida
-1. Sistema retorna uma mensagem de erro informando que as credenciais estão erradas ()
+#Exceção - Email em uso
+1. Sistema retorna uma mensagem de erro informando que o e-mail já está em uso (X)
